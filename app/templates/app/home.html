@@ -1,0 +1,215 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MailGuard AI | Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">✉</span>
+            MAILGUARD <span>AI</span>
+        </div>
+
+        <p class="menu-title">MENU</p>
+
+        <a href="{% url 'home' %}" class="menu active">▦ Dashboard</a>
+        <a href="#scanner" class="menu">✉ Scan Email</a>
+        <a href="#activity" class="menu">◷ History</a>
+        <a href="#settings" class="menu">⚙ Settings</a>
+
+        <div class="sidebar-bottom">
+            <div class="shield">🛡</div>
+            <h3>Your Inbox is Protected</h3>
+            <p>AI-powered email security</p>
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h2>Dashboard</h2>
+                <p>Welcome to MailGuard AI!</p>
+            </div>
+
+            <div class="profile">
+
+                {% if user.is_authenticated %}
+
+                    <span>🛡</span>
+
+                    <div>
+                        <strong>
+                            {{ user.first_name|default:user.username }}
+                        </strong>
+                        <small>Security User</small>
+                    </div>
+
+                    <a href="{% url 'logout' %}">Logout</a>
+
+                {% else %}
+
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+
+                {% endif %}
+
+            </div>
+
+        </header>
+
+
+        <section class="welcome">
+
+            <div>
+
+                <p class="small-heading">AI EMAIL SECURITY</p>
+
+                <h1>
+                    Protect your inbox<br>
+                    with <span>Artificial Intelligence.</span>
+                </h1>
+
+                <p>
+                    Detect spam and suspicious emails instantly
+                    with MailGuard AI.
+                </p>
+
+                <a href="#scanner" class="start-btn">
+                    Start Scanning →
+                </a>
+
+            </div>
+
+            <div class="big-shield">🛡️</div>
+
+        </section>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon blue">✉</div>
+                <p>Emails Scanned</p>
+                <h2>1,284</h2>
+                <small>Total scanned</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon red">⚠</div>
+                <p>Spam Blocked</p>
+                <h2>346</h2>
+                <small>Threats detected</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">✓</div>
+                <p>Safe Emails</p>
+                <h2>938</h2>
+                <small>Emails verified</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">✦</div>
+                <p>Detection Accuracy</p>
+                <h2>98%</h2>
+                <small>Sample display</small>
+            </div>
+
+        </section>
+
+
+        <section class="scanner" id="scanner">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>✉ Email Analyzer</h2>
+                    <p>Check your email for spam and suspicious content.</p>
+                </div>
+
+                <span class="ai-badge">✦ AI POWERED</span>
+
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label>PASTE EMAIL CONTENT</label>
+
+                <textarea
+                    name="email_text"
+                    placeholder="Paste your email message here..."
+                    required
+                ></textarea>
+
+                <button type="submit">
+                    🛡 Analyze Email
+                </button>
+
+            </form>
+
+            {% if result %}
+                <div class="result">
+                    <h3>Analysis Result</h3>
+                    <p>{{ result }}</p>
+                </div>
+            {% endif %}
+
+        </section>
+
+
+        <section class="activity" id="activity">
+
+            <h2>Recent Activity</h2>
+
+            <div class="activity-row">
+                <span class="mail-icon">✉</span>
+
+                <div class="activity-info">
+                    <strong>Email Analysis</strong>
+                    <small>Spam detection system</small>
+                </div>
+
+                <span class="status safe">Safe</span>
+            </div>
+
+            <div class="activity-row">
+                <span class="mail-icon">✉</span>
+
+                <div class="activity-info">
+                    <strong>Email Analysis</strong>
+                    <small>Spam detection system</small>
+                </div>
+
+                <span class="status spam">Spam</span>
+            </div>
+
+        </section>
+
+
+        <footer>
+            © 2026 MailGuard AI | AI Email Spam Detection System
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
